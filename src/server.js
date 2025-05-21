@@ -8,13 +8,14 @@ const app = express();
 const port = process.env.PORT || 3000;
 const ACCESS_SECRET_KEY = process.env.JWT_ACCESS_SECRET || "secretkey";
 const REFRESH_SECRET_KEY = process.env.JWT_REFRESH_SECRET || "secretkey";
+const CORS_ORIGIN = process.env.CORS_ORIGIN || "http://localhost:8080";
 
 let refreshTokens = [];
 
 app.use(express.json()); // Middleware para recibir JSON
 
 const cors_options = {
-  origin: "https://localhost:8080",
+  origin: CORS_ORIGIN,
   methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true, // Solo si usás cookies o headers de autenticación
@@ -118,5 +119,5 @@ app.post("/logout", (req, res) => {
 
 
 app.listen(port, () => {
-  console.log(`Servidor backend en http://localhost:${port}`);
+  console.log("Servidor backend levantado");
 });
