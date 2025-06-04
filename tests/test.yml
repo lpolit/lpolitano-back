@@ -1,0 +1,24 @@
+config:
+  target: "http://localhost:3000"  # Cambia el host si es diferente
+  phases:
+    - duration: 5  # Duración total de la prueba (en segundos)
+      arrivalRate: 1  # Usuarios virtuales por segundo
+  defaults:
+    headers:
+      Content-Type: "application/json"
+
+scenarios:
+  - name: Login y  acceso a  profile
+    flow:
+      - post:
+          url: "/login"
+          json:
+            username: "admin"
+            password: "1234"
+          capture:
+            - json: accessToken
+              as: token
+      - get:
+          url: "/profile"
+          headers:
+            Authorization: "Bearer {{ token }}"

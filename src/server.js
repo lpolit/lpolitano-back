@@ -98,6 +98,15 @@ app.get("/profile", verifyToken, (req, res) => {
   res.json({ message: "Perfil autorizado", user: req.user });
 });
 
+const memo = [];
+app.get('/pesado', (req, res) => {
+  for (let i = 0; i < 100000; i++) {
+    memo.push(new Array(1000).fill('*'));
+  }
+  res.send('Cargando memoria...');
+
+});
+
 
 app.post("/logout", (req, res) => {
   const refreshToken = req.cookies.refreshToken;
